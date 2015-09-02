@@ -28,9 +28,6 @@
  * @author	Detlef Balzer, Edgar Gaiser <gaiser@econda.de>
  */
 
-require_once(PATH_tslib.'class.tslib_menu.php');
-require_once(PATH_tslib.'class.tslib_search.php');
-
 class tx_econda_pi1 extends tslib_menu{
 	var $prefixId = 'tx_econda_pi1'; // Same as class name
 	var $scriptRelPath = 'pi1/class.tx_econda_pi1.php'; // Path to this script relative to the extension dir.
