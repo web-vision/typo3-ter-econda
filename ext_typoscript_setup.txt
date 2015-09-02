@@ -1,0 +1,16 @@
+
+plugin.tx_econda_pi1 {
+  jstracking = {$plugin.econda.jstracking}
+  jsstoptracking = {$plugin.econda.jsstoptracking}
+  siteid = {$plugin.econda.siteid}
+  formname = {$plugin.econda.formname}
+  langid = {$plugin.econda.langid}
+  content = {$plugin.econda.content}
+  emospath = {$plugin.econda.emospath}
+  langdebug = {$plugin.econda.langdebug}
+  notracking = {$plugin.econda.notracking}
+  maxperlevel = {$plugin.econda.maxperlevel}  
+}
+
+
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language and Currency factor labels for database fields to extend table sys_language belonging to extension 'econda'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="sys_language.tx_econda_static_country_isocode">ISO Country Code (eg. 'DE')</label>
+			<label index="sys_language.tx_econda_static_currency_factor">Currency exchange factor to EUR</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="sys_language.tx_econda_static_country_isocode">ISO Ländercode (z.B. 'DE')</label>
+			<label index="sys_language.tx_econda_static_currency_factor">Währungsumrechnungsfaktor zum Euro</label>
+		</languageKey>
+	</data>
+</T3locallang>

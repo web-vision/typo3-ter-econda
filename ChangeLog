@@ -1,0 +1,38 @@
+(add new changes on top of this file)
+
+0.0.14 Edgar Gaiser <gaiser@econda.de>
+
+        *Support for new Javascript integration to track dynamic content
+        added value jstracking to activate new integration
+        added value jsstoptracking to stop automatic Javascript tracking on site load
+        Read manual before activation
+
+0.0.13 Edgar Gaiser <gaiser@econda.de>
+
+        *New user value available:
+        notracking to exclude tracking from single sites or site projects.
+
+0.0.12  Edgar Gaiser <gaiser@econda.de>
+
+         *bugfix: searchresults wrong after indexed search.
+
+0.0.11 Edgar Gaiser <gaiser@econda.de>
+
+         *New user values available:
+         languageID and path to emos file.
+         *bugfix: A alternative possibillity to get the languageId.
+
+0.0.10 Edgar Gaiser <gaiser@econda.de>
+
+         *bugfix: content output fixed if aliases are used
+
+0.0.9 Edgar Gaiser <gaiser@econda.de>
+
+        * added pageId for click monitor
+        * added addContact for standard mailforms
+        * value of siteId can be manually set
+        * value of mailform name can be manually set
+
+0.0.6 Detlef Balzer  <detlef@balzer.com>
+
+        * Initial release
