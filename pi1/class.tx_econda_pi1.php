@@ -18,8 +18,8 @@
  *
  * @author  Detlef Balzer, Edgar Gaiser <gaiser@econda.de>
  */
-
-class tx_econda_pi1 extends tslib_menu{
+class tx_econda_pi1 extends tslib_menu
+{
     var $prefixId = 'tx_econda_pi1'; // Same as class name
     var $scriptRelPath = 'pi1/class.tx_econda_pi1.php'; // Path to this script relative to the extension dir.
     var $extKey = 'econda'; // The extension key.
@@ -32,37 +32,38 @@ class tx_econda_pi1 extends tslib_menu{
      * <a name="emos_name" title="content" ...
      * <script type="text/javascript" src="fileadmin/template/javascript/emos2.js"></script> at bottom of the content body
      */
-    function main($sitecontent, $conf) { // get EMOS code and insert this code into each website
-        require ('class.tx_econda_emos.php');  // include ECONDA PHP-Helper library
+    function main($sitecontent, $conf)
+    {
+ // get EMOS code and insert this code into each website
+        require('class.tx_econda_emos.php');  // include ECONDA PHP-Helper library
         $this->conf = $conf;
         $http_host = t3lib_div::getIndpEnv('HTTP_HOST');
         $lang_id = t3lib_div::_GP('L');
-        $this->pi_USER_INT_obj=1;
+        $this->pi_USER_INT_obj = 1;
 
-        if(trim($conf['emospath']) != "" && stristr($conf['emospath'],'plugin.econda') == false && stristr($conf['emospath'],'plugin.tx_econda') == false) {
+        if(trim($conf['emospath']) != '' && stristr($conf['emospath'], 'plugin.econda') == false && stristr($conf['emospath'], 'plugin.tx_econda') == false) {
             $emosPath = ($conf['emospath']);
             $emos = new EMOS($emosPath); // make a new emos instance for this call
-        }
-        else {
+        } else {
             $emos = new EMOS('fileadmin/template/javascript/'); // make a new emos instance for this call
         }
 
         //$emos->debugMode(2);
 
-        if(trim($conf['jstracking']) == 'true' && stristr($conf['jstracking'],'plugin.econda') == false && stristr($conf['jstracking'],'plugin.tx_econda') == false) {
+        if(trim($conf['jstracking']) == 'true' && stristr($conf['jstracking'], 'plugin.econda') == false && stristr($conf['jstracking'], 'plugin.tx_econda') == false) {
             $emos->trackMode(2);
             $emos->addCdata();
-        }
-        else {
+        } else {
             $emos->addCdata();
         }
-        if(trim($conf['jsstoptracking']) == 'true' && stristr($conf['jsstoptracking'],'plugin.econda') == false && stristr($conf['jsstoptracking'],'plugin.tx_econda') == false) {
+        if(trim($conf['jsstoptracking']) == 'true' && stristr($conf['jsstoptracking'], 'plugin.econda') == false && stristr($conf['jsstoptracking'], 'plugin.tx_econda') == false) {
             $emos->trackOnLoad(false);
         }
 
         $siteid = t3lib_div::_GP('id'); // read parameter id from url
-        if($siteid == '' || (intval($siteid) == 0 && strlen($siteid) > 1)) $siteid = $GLOBALS['TSFE']->page['uid']; // read from internal array if not found
-        $ttproducts = t3lib_div::_GP('tx_ttproducts_pi1'); // read products parameter from url if exists
+        if($siteid == '' || (intval($siteid) == 0 && strlen($siteid) > 1)) {
+            $siteid = $GLOBALS['TSFE']->page['uid']; // read from internal array if not found
+        }        $ttproducts = t3lib_div::_GP('tx_ttproducts_pi1'); // read products parameter from url if exists
         $domainresult_row = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
             'uid',
             'sys_domain',
@@ -74,17 +75,15 @@ class tx_econda_pi1 extends tslib_menu{
         $domainresult_ary = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($domainresult_row); // get uid of current domain if exists
         $domainid = $domainresult_ary['uid'] ? $domainresult_ary['uid'] : 0;
 
-        if(trim($conf['siteid']) != "" && stristr($conf['siteid'],'plugin.econda') == false && stristr($conf['siteid'],'plugin.tx_econda') == false) {
+        if(trim($conf['siteid']) != '' && stristr($conf['siteid'], 'plugin.econda') == false && stristr($conf['siteid'], 'plugin.tx_econda') == false) {
             $emos->addSiteID($conf['siteid']);
-        }
-        else {
+        } else {
             $emos->addSiteID($domainid);
         }
-        if(trim($conf['maxperlevel']) != "" && stristr($conf['maxperlevel'],'plugin.econda') == false && stristr($conf['maxperlevel'],'plugin.tx_econda') == false) {
-           $maxPerLevel = intval($conf['maxperlevel']);
-        }
-        else {
-           $maxPerLevel = 64;
+        if(trim($conf['maxperlevel']) != '' && stristr($conf['maxperlevel'], 'plugin.econda') == false && stristr($conf['maxperlevel'], 'plugin.tx_econda') == false) {
+            $maxPerLevel = intval($conf['maxperlevel']);
+        } else {
+            $maxPerLevel = 64;
         }
         $temp_root_line = $GLOBALS['TSFE']->sys_page->getRootLine($siteid);
         $temp_root_line = array_reverse($temp_root_line); // array_shift reverses the array (rootline has numeric index in the wrong order!)
@@ -93,13 +92,15 @@ class tx_econda_pi1 extends tslib_menu{
 
         $pos = strrpos($content, '/');
         $temp_root_line = explode('/', $content);
-        if(array_pop($temp_root_line) == array_pop($temp_root_line)) $content = substr($content, 0, $pos); // do not list duplicate last identical entries
-        if(substr($content, 0, 1) == '/') $content = substr($content, 1);
-
-        if(trim($conf['content']) != "" && stristr($conf['content'],'plugin.econda') == false && stristr($conf['content'],'plugin.tx_econda') == false) {
-            $emos->addContent($conf['content']);
+        if(array_pop($temp_root_line) == array_pop($temp_root_line)) {
+            $content = substr($content, 0, $pos); // do not list duplicate last identical entries
+        }        if(substr($content, 0, 1) == '/') {
+            $content = substr($content, 1);
         }
-        else{
+
+        if(trim($conf['content']) != '' && stristr($conf['content'], 'plugin.econda') == false && stristr($conf['content'], 'plugin.tx_econda') == false) {
+            $emos->addContent($conf['content']);
+        } else{
             $emos->addContent($content);
         }
 
@@ -123,8 +124,8 @@ class tx_econda_pi1 extends tslib_menu{
                 $txidspf = true;
             }
 
-            if(($tx_indexedsearch_ary['pointer'] == "0" && $tx_indexedsearch_ary['_freeIndexUid'] == "_") || $txidspf == false){
-                 $searchresult_row = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid,hits','index_stat_search','searchstring='.$GLOBALS['TYPO3_DB']->fullQuoteStr($searchstring, 'index_stat_search'),'','uid desc','1');
+            if(($tx_indexedsearch_ary['pointer'] == '0' && $tx_indexedsearch_ary['_freeIndexUid'] == '_') || $txidspf == false) {
+                 $searchresult_row = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid,hits', 'index_stat_search', 'searchstring='.$GLOBALS['TYPO3_DB']->fullQuoteStr($searchstring, 'index_stat_search'), '', 'uid desc', '1');
                  $searchresult_ary = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($searchresult_row); // get amount of hits from former last search,
                  $searchresult_hits = $searchresult_ary['hits'] ? $searchresult_ary['hits'] : 0; // a way to get an actual result
                  $emos->addSearch($searchstring, $searchresult_hits);
@@ -134,16 +135,15 @@ class tx_econda_pi1 extends tslib_menu{
          /*
           * standard mailform
           */
-        if (trim(t3lib_div::_GP('formtype_mail') != ""))    {
-            if(trim($conf['formname']) != "" && stristr($conf['formname'],'plugin.econda') == false && stristr($conf['formname'],'plugin.tx_econda') == false) {
+        if (trim(t3lib_div::_GP('formtype_mail') != '')) {
+            if(trim($conf['formname']) != '' && stristr($conf['formname'], 'plugin.econda') == false && stristr($conf['formname'], 'plugin.tx_econda') == false) {
                 $emos->addContact($conf['formname']);
-            }
-            else {
+            } else {
                 $emos->addContact('Mailform');
             }
         }
 
-        if(trim($conf['langdebug']) == 'true' && stristr($conf['langdebug'],'plugin.econda') == false && stristr($conf['langdebug'],'plugin.tx_econda') == false) {
+        if(trim($conf['langdebug']) == 'true' && stristr($conf['langdebug'], 'plugin.econda') == false && stristr($conf['langdebug'], 'plugin.tx_econda') == false) {
             // new handling of langid
             $countryid_ary = explode('.', $http_host);
             if ($countryid_ary[0] != $http_host) {
@@ -154,8 +154,7 @@ class tx_econda_pi1 extends tslib_menu{
             if(trim($languageid) == '') {
                 $languageid = '0';
             }
-        }
-        else {
+        } else {
             if ($lang_id && t3lib_utility_Math::canBeInterpretedAsInteger($lang_id)) { // check for country code
                 $countryid_row = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
                     'a.tx_econda_static_country_isocode,a.tx_econda_static_currency_factor,b.lg_iso_2',
@@ -165,20 +164,23 @@ class tx_econda_pi1 extends tslib_menu{
                 $countryid_ary = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($countryid_row);
                 $countryid = $countryid_ary['tx_econda_static_country_isocode'];
                 $this->currency_factor = $countryid_ary['tx_econda_static_currency_factor'];
-                if ($this->currency_factor == '' || $this->currency_factor == 0) $this->currency_factor = 1;
+                if ($this->currency_factor == '' || $this->currency_factor == 0) {
+                    $this->currency_factor = 1;
+                }
                 $languageid = $countryid_ary['lg_iso_2'];
             } else {
                 $countryid_ary = explode('.', $http_host);
-                if ($countryid_ary[0] != $http_host) $countryid = strtoupper(array_pop($countryid_ary));
+                if ($countryid_ary[0] != $http_host) {
+                    $countryid = strtoupper(array_pop($countryid_ary));
+                }
                 $this->currency_factor = 1;
                 $languageid = 'DE';
             }
         }
 
-        if(trim($conf['langid']) != "" && stristr($conf['langid'],'plugin.econda') == false && stristr($conf['langid'],'plugin.tx_econda') == false) {
+        if(trim($conf['langid']) != '' && stristr($conf['langid'], 'plugin.econda') == false && stristr($conf['langid'], 'plugin.tx_econda') == false) {
             $emos->addLangID($conf['langid']);// language (ISO-2 code, eg. 'DE')
-        }
-        else {
+        } else {
             $emos->addLangID($languageid);
         }
 
@@ -193,10 +195,18 @@ class tx_econda_pi1 extends tslib_menu{
             $oldBasketExt = $GLOBALS['TSFE']->fe_user->getKey('ses', 'oldBasketExt'); // get info stored by this ECONDA plugin
             $products_update = (t3lib_div::_GP('products_update') || t3lib_div::_GP('products_update_x')) ? true : false;
             if ($ttproducts['backPID'] == $siteid && !$products_update) { // no extra GET parameter to add a product
-                if (t3lib_div::_GP('products_info') || t3lib_div::_GP('products_info_x')) $emos->addOrderProcess('2_Kundendaten', $error);
-                if (t3lib_div::_GP('products_payment') || t3lib_div::_GP('products_payment_x')) $emos->addOrderProcess('3_Zahlungsoptionen', $error);
-                if (t3lib_div::_GP('products_customized_payment') || t3lib_div::_GP('products_customized_payment_x')) $emos->addOrderProcess('3_Zahlungsoptionen', $error);
-                if (t3lib_div::_GP('products_overview') || t3lib_div::_GP('products_overview_x')) $emos->addOrderProcess('4_Bestelluebersicht', $error);
+                if (t3lib_div::_GP('products_info') || t3lib_div::_GP('products_info_x')) {
+                    $emos->addOrderProcess('2_Kundendaten', $error);
+                }
+                if (t3lib_div::_GP('products_payment') || t3lib_div::_GP('products_payment_x')) {
+                    $emos->addOrderProcess('3_Zahlungsoptionen', $error);
+                }
+                if (t3lib_div::_GP('products_customized_payment') || t3lib_div::_GP('products_customized_payment_x')) {
+                    $emos->addOrderProcess('3_Zahlungsoptionen', $error);
+                }
+                if (t3lib_div::_GP('products_overview') || t3lib_div::_GP('products_overview_x')) {
+                    $emos->addOrderProcess('4_Bestelluebersicht', $error);
+                }
                 // if (t3lib_div::_GP('products_redeem_gift') || t3lib_div::_GP('products_redeem_gift_x')) {}
                 // if (t3lib_div::_GP('products_clear_basket') || t3lib_div::_GP('products_clear_basket_x')) {}
                 if (t3lib_div::_GP('products_finalize') || t3lib_div::_GP('products_finalize_x')) {
@@ -226,8 +236,9 @@ class tx_econda_pi1 extends tslib_menu{
                         '1'
                     );
                     $first_ary = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($first_row); // get first order of same customer to look for customer number
-                    if ($first_ary['nr'] == '' || $first_ary['nr'] == '/') $first_ary['nr'] = $first_ary['crdate']; // use timestamp, if no customer number exists
-                    $emos->addEmosBillingPageArray(
+                    if ($first_ary['nr'] == '' || $first_ary['nr'] == '/') {
+                        $first_ary['nr'] = $first_ary['crdate']; // use timestamp, if no customer number exists
+                    }                    $emos->addEmosBillingPageArray(
                         $order_ary['uid'],
                         $first_ary['nr'],
                         $order_ary['amount'],
@@ -280,9 +291,8 @@ class tx_econda_pi1 extends tslib_menu{
             }
         }
 
-        if(trim($conf['notracking']) == 'true' && stristr($conf['notracking'],'plugin.econda') == false && stristr($conf['notracking'],'plugin.tx_econda') == false) {
-        }
-        else {
+        if(trim($conf['notracking']) == 'true' && stristr($conf['notracking'], 'plugin.econda') == false && stristr($conf['notracking'], 'plugin.tx_econda') == false) {
+        } else {
             $retString = "\n<!-- Plugin: 018/tx_econda_pi1 [begin] -->\n";
             $retString .= $emos->toString();
             $retString .= "<!-- Plugin: 018/tx_econda_pi1 [end] -->\n";
@@ -293,7 +303,8 @@ class tx_econda_pi1 extends tslib_menu{
     /**
      * Convert a Product with given ID to an EMOS_Item
      */
-    function productToEMOSItem($id, $quantity = 1) {
+    function productToEMOSItem($id, $quantity = 1)
+    {
         $products_row = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
             'p.itemnumber,p.title p_title,p.price,c.title c_title',
             'tt_products p,tt_products_cat c',
@@ -303,7 +314,7 @@ class tx_econda_pi1 extends tslib_menu{
         $item = new EMOS_Item(); // type definition see EMOS PHP-Helper class.tx_econda_pi1.php
         $item->productID = $products_ary['itemnumber'];
         $item->productName = $products_ary['p_title'];
-        $item->price = number_format($products_ary['price'],2);
+        $item->price = number_format($products_ary['price'], 2);
         $item->productGroup = $products_ary['c_title'].($products_ary['p_title'] ? '/'.$products_ary['p_title'] : '');
         $item->quantity = $quantity;
         return $item;
@@ -312,7 +323,8 @@ class tx_econda_pi1 extends tslib_menu{
     /**
      * build an EMOS_Basket array
      */
-    function productToEMOSBasket($uid) {
+    function productToEMOSBasket($uid)
+    {
         $basket = array ();
         $order_item_row = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
             'sys_products_orders_qty,tt_products_uid',
@@ -334,4 +346,3 @@ class tx_econda_pi1 extends tslib_menu{
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/econda/pi1/class.tx_econda_pi1.php']) {
     include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/econda/pi1/class.tx_econda_pi1.php']);
 }
-?>

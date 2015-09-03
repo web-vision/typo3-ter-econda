@@ -13,22 +13,24 @@
  * The TYPO3 project - inspiring people to share!
  */
 
-if (!defined ('TYPO3_MODE'))    die ('Access denied.');
-$tempColumns = Array (
-    'tx_econda_static_country_isocode' => Array (
+if (!defined('TYPO3_MODE')) {
+    die('Access denied.');
+}
+$tempColumns = array (
+    'tx_econda_static_country_isocode' => array (
         'exclude' => 0,
         'label' => 'LLL:EXT:econda/locallang_db.xml:sys_language.tx_econda_static_country_isocode',
-        'config' => Array (
+        'config' => array (
             'type' => 'input',
             'size' => '5',
             'max' => '2',
             'eval' => 'required,trim'
         )
     ),
-    'tx_econda_static_currency_factor' => Array (
+    'tx_econda_static_currency_factor' => array (
         'exclude' => 0,
         'label' => 'LLL:EXT:econda/locallang_db.xml:sys_language.tx_econda_static_currency_factor',
-        'config' => Array (
+        'config' => array (
             'type' => 'input',
             'size' => '5',
             'max' => '12',
@@ -43,5 +45,5 @@ $tempColumns = Array (
     'Econda'
 );
 t3lib_div::loadTCA('sys_language');
-t3lib_extMgm::addTCAcolumns('sys_language',$tempColumns,1);
-t3lib_extMgm::addToAllTCAtypes("sys_language","tx_econda_static_country_isocode;;;;1-1-1, tx_econda_static_currency_factor");
+t3lib_extMgm::addTCAcolumns('sys_language', $tempColumns, 1);
+t3lib_extMgm::addToAllTCAtypes('sys_language', 'tx_econda_static_country_isocode;;;;1-1-1, tx_econda_static_currency_factor');
