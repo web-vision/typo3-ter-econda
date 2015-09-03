@@ -1,10 +1,18 @@
 <?php
-if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
+
+/*
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+
+if (!defined ('TYPO3_MODE'))    die ('Access denied.');
 
 t3lib_extMgm::addPItoST43($_EXTKEY,'pi1/class.tx_econda_pi1.php','_pi1','econda',0);
-$cN = t3lib_extMgm::getCN($_EXTKEY);
-t3lib_extMgm::addTypoScript($_EXTKEY,'setup','
-# Setting '.$_EXTKEY.' plugin TypoScript
-'.'page.8888 = < plugin.'.$cN.'_pi1'.'
-',43);
-?>
