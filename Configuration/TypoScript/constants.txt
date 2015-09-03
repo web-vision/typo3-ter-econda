@@ -1,0 +1,12 @@
+plugin.econda {
+    jstracking = true
+    jsstoptracking = 
+    siteid = 
+    formname = 
+    langid = 
+    content = 
+    emospath = 
+    langdebug = 
+    notracking = 
+    maxperlevel = 
+}

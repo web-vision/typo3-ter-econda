@@ -12,10 +12,8 @@ $EM_CONF[$_EXTKEY] = array (
     'author' => 'Daniel Siepmann, Detlef Balzer, Edgar Gaiser, Holger Reinecke',
     'author_email' => 'reinecke@econda.de',
     'author_company' => 'Econda GmbH',
-    'constraints' =>
-    array (
-        'depends' =>
-        array (
+    'constraints' => array (
+        'depends' => array (
             'typo3' => '4.6.0-6.2.99',
         ),
     ),
