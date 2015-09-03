@@ -1,6 +1,10 @@
 0.0.20 Daniel Siepmann <d.siepmann@web-vision.de>
 
         * feature: make compatible with TYPO3 CMS 6.2
+        * feature: remove ext_typoscript* files and replace by static TypoScript
+        * feature: include plugin via static TypoScript
+        * task: use js tracking as default
+		* task: add license to files
 
 0.0.14 Edgar Gaiser <gaiser@econda.de>
 
